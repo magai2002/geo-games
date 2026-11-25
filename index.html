@@ -32,13 +32,17 @@
         <span class="prompt-label">Click on</span>
         <span class="prompt-name" id="promptName"></span>
         <span class="prompt-tries" id="promptTries"></span>
+        <button class="btn btn-ghost btn-skip" id="skipBtn" title="Skip for now, it comes back later (Space)">Skip</button>
       </div>
 
       <!-- Start / results overlay -->
       <div class="overlay" id="overlay">
         <div class="card" id="menu">
-          <h1>Countries of <span id="regionName">Europe</span></h1>
+          <h1 id="regionTitle">Countries of Europe</h1>
           <p class="muted">Timed map quizzes. Drag to pan, scroll or pinch to zoom.</p>
+
+          <h2>Region</h2>
+          <div class="chips" id="regionChoices"></div>
 
           <h2>Quiz</h2>
           <div class="choices" id="modeChoices">
@@ -46,14 +50,14 @@
               <input type="radio" name="mode" value="type" checked>
               <span class="choice-body">
                 <strong>Name them all</strong>
-                <small>Type every country before time runs out.</small>
+                <small id="typeDesc">Type every country before time runs out.</small>
               </span>
             </label>
-            <label class="choice">
+            <label class="choice" id="clickChoice">
               <input type="radio" name="mode" value="click">
               <span class="choice-body">
                 <strong>Find on the map</strong>
-                <small>We name a country, you click it. 3 tries each.</small>
+                <small id="clickDesc">We name a country, you click it. 3 tries each.</small>
               </span>
             </label>
           </div>
@@ -64,7 +68,7 @@
               <input type="radio" name="style" value="bordered" checked>
               <span class="choice-body">
                 <strong>Borders</strong>
-                <small>Country outlines shown.</small>
+                <small>Borders shown.</small>
               </span>
             </label>
             <label class="choice">
@@ -100,7 +104,7 @@
 
     <!-- Type-mode panel -->
     <aside class="panel" id="typePanel" hidden>
-      <label class="input-label" for="answer">Enter country:</label>
+      <label class="input-label" for="answer" id="answerLabel">Enter country:</label>
       <input id="answer" class="answer" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="e.g. France">
       <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
       <ul class="found-list" id="foundList"></ul>

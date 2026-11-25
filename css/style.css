@@ -199,12 +199,39 @@ body {
 .progress { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
 .progress-bar { height: 100%; width: 0; background: var(--good); transition: width .2s; }
 .found-list {
-  list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1;
-  columns: 2; column-gap: 12px; font-size: 13px;
+  list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 12px;
+  align-content: start; font-size: 13px;
 }
 .found-list li {
   padding: 2px 0; border-bottom: 1px dashed var(--line); min-height: 1.6em;
-  break-inside: avoid; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .found-list li.found { color: var(--good); font-weight: 600; }
 .found-list li.missed { color: var(--bad); }
+
+/* ---------- region picker ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { position: relative; cursor: pointer; }
+.chip input { position: absolute; opacity: 0; }
+.chip span {
+  display: block; padding: 6px 12px; border: 2px solid var(--line); border-radius: 999px;
+  font-weight: 600; font-size: 14px;
+}
+.chip input:checked + span { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--accent); }
+.chip input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.choice.disabled { cursor: not-allowed; opacity: .45; }
+.choice.disabled small::after { content: " Not available for this region yet."; }
+#startBtn:disabled { opacity: .6; cursor: wait; }
+
+/* Grouped answer list (World): a heading per continent */
+.found-list li.group {
+  grid-column: 1 / -1; border-bottom: 0; padding: 10px 0 2px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted);
+}
+.found-list li.group:first-child { padding-top: 0; }
+
+/* Skip button inside the click-mode prompt */
+.prompt { align-items: center; }
+.btn-skip { padding: 4px 12px; font-size: 13px; border-radius: 999px; margin-left: 4px; }
+.btn-skip:disabled { opacity: .4; cursor: default; }
